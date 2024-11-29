@@ -1,8 +1,11 @@
 0 "very big title" author year в наличии
 1 "very big title" author year в наличии
 2 "very big title" author year в наличии
-3 "very big title" author year в наличии
-4 favorite storyв наличии
-5 new titlenew author2023 в наличии
-6 22 22 22 в наличии
-7 22 33 44 в наличии
+3 favorite в наличии
+4 blablabla balabol выдана 6 dasd sa d в наличии
+5 dsada dsada dads в наличии
+6 sadasd dasd asd в наличии
+7 || norm || norm || norm || в наличии
+8 || some nitelno no okey || naverno ya sam || davnim davno || в наличии
+9 || once in skazke || marshal || 201 || в наличии
+10 || privet || kak dela || horosho || в наличии

@@ -1,3 +1,3 @@
 all:
 	clear
-	@python3 lib.py
+	@python3 -u lib.py
