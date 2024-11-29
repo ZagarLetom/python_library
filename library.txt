@@ -1,11 +1,4 @@
-0 "very big title" author year в наличии
-1 "very big title" author year в наличии
-2 "very big title" author year в наличии
-3 favorite в наличии
-4 blablabla balabol выдана 6 dasd sa d в наличии
-5 dsada dsada dads в наличии
-6 sadasd dasd asd в наличии
-7 || norm || norm || norm || в наличии
-8 || some nitelno no okey || naverno ya sam || davnim davno || в наличии
-9 || once in skazke || marshal || 201 || в наличии
-10 || privet || kak dela || horosho || в наличии
+0 || kf || sl || 1925 || в наличии
+1 || paz paz paz || eto hradbass || 2021 || в наличии
+2 || My title || My author || 2022 || выдана
+3 || kek || lol || 2000 || в наличии
