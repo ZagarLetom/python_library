@@ -13,17 +13,23 @@ def readlines_from_file():
     source_file.close()
     return records
 
-def print_out_new_info(record):
+def print_out_record_info(record, first_out=True):
     record = record.split('^')
-    print(' ' * (len(record[0]) - 2) + 'id',
-          'title' + ' ' * (len(record[1]) - 5),
-          'author' + ' ' * (len(record[2]) - 6),
+    max_id, max_title, max_author = ordering_id()
+    max_id -= 1
+    max_id = str(max_id)
+    if first_out:
+    # Вывод описания таблицы
+        print(' ' * (len(max_id) - 2) + 'id',
+          'title' + ' ' * (max_title - 5),
+          'author' + ' ' * (max_author - 6),
           'year',
           'status',
           sep = '\t')
-    print(' ' * (2 - len(record[0])) + record[0],
-          record[1] + ' ' * (5 - len(record[1])),
-          record[2] + ' ' * (6 - len(record[2])),
+    # Вывод информации о книге
+    print(' ' * (len(max_id) - len(record[0])) + record[0],
+          record[1] + ' ' * (max_title - len(record[1])),
+          record[2] + ' ' * (max_author - len(record[2])),
           record[3],
           record[4],
           sep = '\t')
@@ -88,34 +94,26 @@ def add():
         print(year + ' - год издания книги?\nСмешно. Но ладно.\n')
     
     print('\nNEW BOOK!\n')
-    print_out_new_info(new_record)
+    print_out_record_info(new_record)
     print("\nAdding a new book was successful!\n")
 
 def show_all():
-
-    max_id, max_title, max_author = ordering_id()
-    max_id -= 1
-    max_id = str(max_id)
+    print('Library List:')
     records = readlines_from_file()
-    # Вывод описания
-    print(' ' * (len(max_id) - 2) + 'id',
-          'title' + ' ' * (max_title - 5),
-          'author' + ' ' * (max_author - 6),
-          'year',
-          'status',
-          sep = '\t')
-    # Вывод базы
+    first_out = True
     for record in records:
-        record = record.split('^')
-        print(' ' * (len(max_id) - len(record[0])) + record[0],
-          record[1] + ' ' * (max_title - len(record[1])),
-          record[2] + ' ' * (max_author - len(record[2])),
-          record[3],
-          record[4],
-          sep = '\t')
+        print_out_record_info(record, first_out)
+        first_out = False
     print()
 
-def delete(id):
+def delete():
+
+    print('Which record do you want to delete?\nEnter id')
+    
+    id = input()
+
+    if id == 'last':
+        id = str(ordering_id()[0] - 1)
 
     records = readlines_from_file()
 
@@ -132,12 +130,19 @@ def delete(id):
 
     if match:
         print('\nDeleted Record:\n')
-        print_out_new_info(deleted_record)
+        print_out_record_info(deleted_record)
         print('\nDeleting the book was successful.\n')
     else:
         check_correct_id(id)
 
-def change_status(id):
+def change_status():
+
+    print('Which record do you want to change status?\nEnter id')
+
+    id = input()
+
+    if id == 'last':
+        id = str(ordering_id()[0] - 1)
 
     records = readlines_from_file()
 
@@ -148,7 +153,7 @@ def change_status(id):
         if record.split('^')[0] == id:
             match = True
             print('\nOld Status:\n')
-            print_out_new_info(record)
+            print_out_record_info(record)
             record = record.split('^')
             if record[-2] == 'выдана':
                 record[-2] = 'в наличии'
@@ -161,45 +166,64 @@ def change_status(id):
 
     if match:
         print('\nNEW STATUS!\n')
-        print_out_new_info(change_record)
+        print_out_record_info(change_record)
         print('\nThe change in the status of the book was successful!\n')
     else:
         check_correct_id(id)
 
-def find_book(title, author, year):
-    
+def extract_title_author_year(record, title, author, year):
+    record = record.split('^')
+    rec_title = ''
+    if not title == '':
+        rec_title = record[1]
+    rec_author = ''
+    if not author == '':
+        rec_author = record[2]
+    rec_year = ''
+    if not year == '':
+        rec_year = record[3]
+    return rec_title, rec_author, rec_year
+
+def find_book():
+
+    print('Поиск будет по Названию? "Enter" - to skip')
+    title = input()
+
+    print('Поиск будет по Имени автора? "Enter" - to skip')
+    author = input()
+
+    print('Поиск будет по Году издания? "Enter" - to skip')
+    year = input()
+
     records = readlines_from_file()
-    first_book_found = True
-    print('Library List:')
+
+    print('Search result:')
+
+    book_been_found = False
+
+    # Точный поиск
     for record in records:
-        parts = [0, 0, 0, 0]
-        parts_index = 0
-        count = 0
-        clone_record = record.split()
-        for part in clone_record:
-            if part == '||':
-                parts[parts_index] = count
-                parts_index += 1
-            count += 1
-        rec_title = ''
-        if not title == '':
-            rec_title = ''.join(clone_record[parts[0] + 1 : parts[1]])
-        rec_author = ''
-        if not author == '':
-            rec_author = ''.join(clone_record[parts[1] + 1 : parts[2]])
-        rec_year = ''
-        if not year == '':
-            rec_year = ''.join(clone_record[parts[2] + 1 : parts[3]])
+        rec_title, rec_author, rec_year = extract_title_author_year(record, title, author, year)
         if title == rec_title and author == rec_author and year == rec_year:
-            read(clone_record[0], first_book_found)
-            first_book_found = False
+            print_out_record_info(record, not book_been_found)
+            book_been_found = True
+
+    # Поиск по подстрокам, если ничего не найдено точно
+    if not book_been_found:
+        for record in records:
+            rec_title, rec_author, rec_year = extract_title_author_year(record, title, author, year)
+            if title in rec_title and author in rec_author and year in rec_year:
+                print_out_record_info(record, not book_been_found)
+                book_been_found = True
+
+    if not book_been_found:
+        print('\t>>There are no such books in our library :(')
     print()
 
 # the body of the program 
 exit = False
+quit_list = ['q', 'й', 'Q', 'Й', 'quit', 'exit', 'make', 'clear']
 while True and not exit:
-
-    quit_list = ['q', 'Й', 'Q', 'Й', 'quit', 'exit', 'clear']
 
     print("""Main menu:
     What do you want to do?
@@ -214,29 +238,15 @@ Enter - to continue
 
     user_choice = input()
     clean_screen()
-    if user_choice == 'a':
+    if user_choice == 'a' or user_choice == 'A' or user_choice == 'ф' or user_choice == 'Ф':
         add()
-    elif user_choice == 'c':
-        print('Which record do you want to change status?\nEnter id')
-        change_status(input())
-    elif user_choice == 'd':
-        print('Which record do you want to delete?\nEnter id')
-        delete(input())
-    elif user_choice == 'f':
-
-        print('Поиск будет по Названию? "Enter" - to skip')
-        title = input()
-
-        print('Поиск будет по Имени автора? "Enter" - to skip')
-        author = input()
-
-        print('Поиск будет по Году издания? "Enter" - to skip')
-        year = input()
-
-        find_book(title, author, year)
-
-    elif user_choice == 's':
-        print('Library List:')
+    elif user_choice == 'c' or user_choice == 'C' or user_choice == 'с' or user_choice == 'С':
+        change_status()
+    elif user_choice == 'd' or user_choice == 'D' or user_choice == 'в' or user_choice == 'В':
+        delete()
+    elif user_choice == 'f' or user_choice == 'F' or user_choice == 'а' or user_choice == 'А':
+        find_book()
+    elif user_choice == 's' or user_choice == 'S' or user_choice == 'ы' or user_choice == 'Ы':
         show_all()
     else:
         for out_com in quit_list:

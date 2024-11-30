@@ -121,7 +121,7 @@
 120^down^3^raz^dva^
 121^raz raz^dva dva^trio^в наличии^
 122^meow^meow meowsim^maoe^в наличии^
-123^raz raz raz^hardbass^2010^в наличии^
+123^raz raz raz^hardbass^2010^выдана^
 124^make^this^again^в наличии^
 125^dasd^adsdas^das^в наличии^
 126^dasd^asd^asd^в наличии^
@@ -998,8 +998,10 @@
 997^dasd^adsdas^das^выдана^
 998^dasd^asd^asd^в наличии^
 999^meow^meow^meow^выдана^
-1000^ex^ex^12^в наличии^
+1000^ex^ex^12^выдана^
 1001^unknown^unknown^2024^выдана^
 1002^unknown^unknown^2024^в наличии^
-1003^unknown^unknown^2024^в наличии^
+1003^unknown^unknown^2024^выдана^
 1004^unknown^unknown^2024^в наличии^
+1005^ksdaoasd^asdkmas^20011^в наличии^
+1006^Посторонний^Альбер Камю^1942^выдана^
