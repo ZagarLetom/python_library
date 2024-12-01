@@ -18,7 +18,6 @@ class Library:
         if year == '':
             year = '2024'
         while not year.isdigit():
-            self.clean_screen()
             print('ОШИБКА - ' + year + ' - это не число!\nВведите год издания книги')
             print('year:')
             year = input()
@@ -50,7 +49,7 @@ class Library:
         self.print_out_record_info(new_record)
         print("\nAdding a new book was successful!\n")
 
-    def change_status(self):
+    def change_book_status(self):
 
         print('Which record do you want to change status?\nEnter id')
 
@@ -86,7 +85,7 @@ class Library:
         else:
             self.check_correct_id(id)
 
-    def delete(self):
+    def delete_book(self):
 
         print('Which record do you want to delete?\nEnter id')
         
@@ -236,19 +235,19 @@ class Library:
         else:
             print('\nОШИБКА: "номер" id - ' + id + ' - не число.\n')
 
-    def clean_screen(self):
-        print('\033[H\033[J', end='')
+def clean_screen():
+    print('\033[H\033[J', end='')
 
 def main_menu_options(quit_list):
     exit = False
     user_choice = input()
-    our_Library.clean_screen()
+    clean_screen()
     if user_choice == 'a' or user_choice == 'A' or user_choice == 'ф' or user_choice == 'Ф':
         our_Library.add_new_book()
     elif user_choice == 'c' or user_choice == 'C' or user_choice == 'с' or user_choice == 'С':
-        our_Library.change_status()
+        our_Library.change_book_status()
     elif user_choice == 'd' or user_choice == 'D' or user_choice == 'в' or user_choice == 'В':
-        our_Library.delete()
+        our_Library.delete_book()
     elif user_choice == 'f' or user_choice == 'F' or user_choice == 'а' or user_choice == 'А':
         our_Library.find_book()
     elif user_choice == 's' or user_choice == 'S' or user_choice == 'ы' or user_choice == 'Ы':
@@ -266,7 +265,7 @@ def additionnal_menu_options(quit_list):
     for out_com in (['n', 'т', 'N', 'Т'] + quit_list):
         if go_on == out_com:
             exit = True
-    our_Library.clean_screen()
+    clean_screen()
     return exit
 
 
