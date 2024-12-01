@@ -3,11 +3,11 @@
 0. [Структура исходного кода](#структура-исходного-кода)
 1. [Class Library](#class-library)
 2. [Пользование программой](#пользование-программой)
-3. [Примеры работы программы:](#примеры-работы-программы)
-   3.1. [a - add_new_book](#a---add_new_book)
-   3.2. [f - find_book](#f---find_book)
-   3.3. [c - change_book_status](#c---change_book_status)
-   3.4. [d - delete_book](#d---delete_book)
+3. [Примеры работы программы:](#примеры-работы-программы) \
+   3.1. [a - add_new_book](#a---add_new_book) \
+   3.2. [f - find_book](#f---find_book) \
+   3.3. [c - change_book_status](#c---change_book_status) \
+   3.4. [d - delete_book](#d---delete_book) \
    3.5. [s - show_all](#s---show_all)
 4. [Прочее](#прочее)
 
